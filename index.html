@@ -28,6 +28,19 @@
           font-size: 3.5rem;
         }
       }
+
+      .jumbotron {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+      }
+
+      footer {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+      }
+      .container {
+        max-width: 90% !important;
+      }
     </style>
     <!-- Custom styles for this template -->
     <link href="home.css" rel="stylesheet">
@@ -38,7 +51,7 @@
     <div class="container d-flex justify-content-between">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        <strong>Madagascar geodata album</strong>
+        <strong>Madagascar map</strong>
       </a>
     </div>
   </div>
@@ -48,8 +61,8 @@
 
   <section class="jumbotron text-center">
     <div class="container">
-      <h1>Madagascar geodata album</h1>
-      <p class="lead text-muted">Un album cartographique pour Madagascar. Cartes basées sur des données disponibles sur le web. </p>
+      <h1>Madagascar map</h1>
+      <p class="lead text-muted" >Un album cartographique présentant spatialement les informations géographiques du pays.</p>
     </div>
   </section>
 
@@ -63,7 +76,7 @@
               <img src="./assets/pages/01-administratives-boudaries/thumbnail.png" style="width: 100%;height: 225px;object-fit: cover;">
             </a>
             <div class="card-body">
-              <p class="card-text">Le territoire Malagasy a quatre entités administratives : Region, Districts, Communes et Fokontany.</p>
+              <p class="card-text text-justify">Quatre entités administratives délimitant le territoire : Région, District, Commune et Fokontany.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="./assets/pages/01-administratives-boudaries/index.html">
@@ -82,7 +95,7 @@
               <img src="./assets/pages/02-population/thumbnail.png" style="width: 100%;height: 225px;object-fit: cover;">
             </a>
             <div class="card-body">
-              <p class="card-text">La population occupant le territoire Malagasy est repartie de manière inégale sur chaque entité administratives.</p>
+              <p class="card-text text-justify">Une population repartie de manière inégale sur chaque entité administrative : une forte concetration au Centre et à l'Est.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="./assets/pages/02-population/index.html">
@@ -118,13 +131,13 @@
 
 </main>
 
-<footer class="text-muted">
+<footer class="text-muted" style="font-size: 11pt; ">
   <div class="container">
-    <p class="float-right">
+    <p class="float-right" >
       <a href="#">Retourner en haut</a>
     </p>
-    <!-- <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p> -->
+    <p> Les codes sources sont disponibles sur <a href="https://github.com/Xpirix/Xpirix.github.io">Github</a>. Voir plus de cartes <a href="https://web.facebook.com/xpirixii">ici</a>.</p>
+    <p style="font-style: italic;">Cartes basées sur des données disponibles sur le web et/ou traitées par l'auteur. <a href="mailto:xpirixii@gmail.com">Xpirix</a> 2021 &copy; </p>
   </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
