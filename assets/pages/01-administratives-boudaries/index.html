@@ -29,6 +29,11 @@
             })
         );
 
+        var scale = new mapboxgl.ScaleControl({
+                maxWidth: 80,
+                unit: 'metric'
+        });
+        map.addControl(scale);
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
         </script>

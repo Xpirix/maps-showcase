@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <title>Population</title>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+        <!-- Load the `mapbox-gl-geocoder` plugin. -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+        <!-- Promise polyfill script is required -->
+        <!-- to use Mapbox GL Geocoder in IE 11. -->
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <link href="./style.css" rel="stylesheet">
+    </head>
+    <body style="margin: 0px !important;">
+        <div id='map'></div>
+        <div class='map-overlay' id='features'><h2>Population par entité</h2><div id='pd'><p>Survolez une entité!</p></div></div>
+        <div class='map-overlay' id='legend'></div>
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoieHBpcml4IiwiYSI6ImNqNHFyaTJ2bzJsN2IycXFhZm1nM3U2cDMifQ.t3O2as4SWF4uxtduLu3YpA';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/xpirix/cknueheim0tjn17l812mwd1ym'
+            });
+
+            var scale = new mapboxgl.ScaleControl({
+                maxWidth: 80,
+                unit: 'metric'
+            });
+            map.addControl(scale);
+                
+            // Add the search control to the map.
+            map.addControl(
+                new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl
+                })
+            );
+
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+
+
+
+            map.on('load', function() {
+                map.getCanvas().style.cursor = 'default';
+            })
+
+            map.on('zoom', function() {
+                legend.innerHTML = '';
+                var layers = [];
+                var colors = []
+                if(map.getZoom() <= 7) {
+                    layers = [
+                    '0 - 0,25', 
+                    '0,25 - 0,5', 
+                    '0,5 - 0,75', 
+                    '0,75 - 1', 
+                    '1 - 1,5', 
+                    '1,5 - 2,5', 
+                    ];
+                    colors = [
+                        '#FFEDA0', 
+                        '#FEB24C', 
+                        '#FD8D3C', 
+                        '#FC4E2A', 
+                        '#E31A1C', 
+                        '#BD0026', 
+                    ];
+                } else if (map.getZoom() >= 7 && map.getZoom() <= 13){
+                    var layers = [
+                        '0 - 0,5', 
+                        '0,5 - 1', 
+                        '1 - 10', 
+                        '10 - 50', 
+                        '50 - 150', 
+                        '150+', 
+                    ];
+                    var colors = [
+                        '#FFEDA0', 
+                        '#FEB24C', 
+                        '#FD8D3C', 
+                        '#FC4E2A', 
+                        '#E31A1C', 
+                        '#BD0026', 
+                    ];
+                    
+                }
+                for (i = 0; i < layers.length; i++) {
+                    var layer = layers[i];
+                    var color = colors[i];
+                    var item = document.createElement('div');
+                    var key = document.createElement('span');
+                    key.className = 'legend-key';
+                    key.style.backgroundColor = color;
+
+                    var value = document.createElement('span');
+                    value.innerHTML = layer;
+                    item.appendChild(key);
+                    item.appendChild(value);
+                    legend.appendChild(item);
+                }
+
+            })
+
+            map.on('mousemove', function(e) {
+            if(map.getZoom() <= 7) {
+                var regions = map.queryRenderedFeatures(e.point, {
+                    layers: ['region-population']
+                });
+    
+                if (regions.length > 0) {
+                    document.getElementById('pd').innerHTML = (
+                        '<h3><strong>' + regions[0].properties.adm1_en + 
+                        '</strong></h3><p><strong><em>' + regions[0].properties.density + 
+                        '</strong> habitants par hectare</em></p><p><strong><em>' + regions[0].properties.p2021est +
+                        '</strong> habitants 2021 (est.)</em></p>'
+                    );
+                } else {
+                    document.getElementById('pd').innerHTML = '<p>Survolez une région</p>';
+                }   
+            } else if (map.getZoom() >= 7 && map.getZoom() <= 13){
+                var districts = map.queryRenderedFeatures(e.point, {
+                    layers: ['district-pop']
+                });
+    
+                if (districts.length > 0) {
+                    document.getElementById('pd').innerHTML = (
+                        '<h3><strong>' + districts[0].properties.adm2_en + 
+                        '</strong></h3><p><strong><em>' + districts[0].properties.density + 
+                        '</strong> habitants par hectare</em></p><p><strong><em>' + districts[0].properties.p2021est +
+                        '</strong> habitants 2021 (est.)</em></p>'
+                        );
+                } else {
+                    document.getElementById('pd').innerHTML = '<p>Survolez un district</p>';
+                }   
+            }
+            });
+
+        </script>
+    </body>
+</html>
