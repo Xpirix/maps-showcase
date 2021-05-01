@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <title>Relief</title>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+        <!-- Load the `mapbox-gl-geocoder` plugin. -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+        <!-- Promise polyfill script is required -->
+        <!-- to use Mapbox GL Geocoder in IE 11. -->
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <link href="../style.css" rel="stylesheet">
+    </head>
+    <body style="margin: 0px !important;">
+        <div id='map'></div>
+        <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoieHBpcml4IiwiYSI6ImNqNHFyaTJ2bzJsN2IycXFhZm1nM3U2cDMifQ.t3O2as4SWF4uxtduLu3YpA';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/xpirix/cknn4whsq45om17mrajs1mp17'
+        });
+
+        // Add the search control to the map.
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl
+            })
+        );
+
+        var scale = new mapboxgl.ScaleControl({
+                maxWidth: 80,
+                unit: 'metric'
+        });
+        map.addControl(scale);
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+        </script>
+    </body>
+</html>

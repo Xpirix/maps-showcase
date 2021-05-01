@@ -11,9 +11,10 @@
         <!-- to use Mapbox GL Geocoder in IE 11. -->
         <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <link href="../style.css" rel="stylesheet">
     </head>
     <body style="margin: 0px !important;">
-        <div id='map' style='width: 100%; height: 100vh;'></div>
+        <div id='map'></div>
         <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoieHBpcml4IiwiYSI6ImNqNHFyaTJ2bzJsN2IycXFhZm1nM3U2cDMifQ.t3O2as4SWF4uxtduLu3YpA';
         var map = new mapboxgl.Map({
@@ -36,6 +37,21 @@
         map.addControl(scale);
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
+
+        map.once('idle', () => {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 5 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        })
         </script>
+
+        <!-- The actual snackbar -->
+        <div id="snackbar">Zoomez pour voir plus...</div>
+        <div class="loader"></div>
     </body>
 </html>

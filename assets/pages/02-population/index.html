@@ -11,11 +11,11 @@
         <!-- to use Mapbox GL Geocoder in IE 11. -->
         <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-        <link href="./style.css" rel="stylesheet">
+        <link href="../style.css" rel="stylesheet">
     </head>
     <body style="margin: 0px !important;">
         <div id='map'></div>
-        <div class='map-overlay' id='features'><h2>Population par entité</h2><div id='pd'><p>Survolez une entité!</p></div></div>
+        <div class='map-overlay' id='features'><div id='pd'><p>Survolez une entité!</p></div></div>
         <div class='map-overlay' id='legend'></div>
         <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoieHBpcml4IiwiYSI6ImNqNHFyaTJ2bzJsN2IycXFhZm1nM3U2cDMifQ.t3O2as4SWF4uxtduLu3YpA';
@@ -47,6 +47,17 @@
                 map.getCanvas().style.cursor = 'default';
             })
 
+            map.once('idle', () => {
+                // Get the snackbar DIV
+                var x = document.getElementById("snackbar");
+
+                // Add the "show" class to DIV
+                x.className = "show";
+
+                // After 5 seconds, remove the show class from DIV
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+            })
+
             map.on('zoom', function() {
                 legend.innerHTML = '';
                 var layers = [];
@@ -58,7 +69,7 @@
                     '#E31A1C', 
                     '#9e0020', 
                 ]
-                if(map.getZoom() <= 7.5) {
+                if(map.getZoom() <= 6.5) {
                     layers = [
                         '0 - 0,25', 
                         '0,25 - 0,5', 
@@ -67,7 +78,7 @@
                         '1 - 1,5', 
                         '1,5 - 2,5', 
                     ];
-                } else if (map.getZoom() >= 7.5 && map.getZoom() <= 10.5){
+                } else if (map.getZoom() >= 6.5 && map.getZoom() <= 10.5){
                     layers = [
                         '0', 
                         '0,5', 
@@ -114,7 +125,7 @@
             })
 
             map.on('mousemove', function(e) {
-            if(map.getZoom() <= 7.5) {
+            if(map.getZoom() <= 6.5) {
                 var regions = map.queryRenderedFeatures(e.point, {
                     layers: ['region-population']
                 });
@@ -124,12 +135,12 @@
                         '<h3><strong>' + regions[0].properties.adm1_en + 
                         '</strong></h3><p><strong><em>' + regions[0].properties.density + 
                         '</strong> habitants par hectare</em></p><p><strong><em>' + regions[0].properties.p2021est +
-                        '</strong> habitants 2021 (est.)</em></p>'
+                        '</strong> habitants en 2021 (est.)</em></p>'
                     );
                 } else {
-                    document.getElementById('pd').innerHTML = '<p>Survolez une région</p>';
+                    document.getElementById('pd').innerHTML = '<p>Survolez une Région</p>';
                 }   
-            } else if (map.getZoom() >= 7.5 && map.getZoom() <= 10.5){
+            } else if (map.getZoom() >= 6.5 && map.getZoom() <= 10.5){
                 var districts = map.queryRenderedFeatures(e.point, {
                     layers: ['district-pop']
                 });
@@ -139,10 +150,10 @@
                         '<h3><strong>' + districts[0].properties.adm2_en + 
                         '</strong></h3><p><strong><em>' + districts[0].properties.density + 
                         '</strong> habitants par hectare</em></p><p><strong><em>' + districts[0].properties.p2021est +
-                        '</strong> habitants 2021 (est.)</em></p>'
+                        '</strong> habitants en 2021 (est.)</em></p>'
                         );
                 } else {
-                    document.getElementById('pd').innerHTML = '<p>Survolez un district</p>';
+                    document.getElementById('pd').innerHTML = '<p>Survolez un District</p>';
                 }   
             } else if (map.getZoom() >= 10.5 && map.getZoom() <= 12.5){
                 var communes = map.queryRenderedFeatures(e.point, {
@@ -154,10 +165,10 @@
                         '<h3><strong>' + communes[0].properties.adm3_en + 
                         '</strong></h3><p><strong><em>' + communes[0].properties.density + 
                         '</strong> habitants par hectare</em></p><p><strong><em>' + communes[0].properties.p2021est +
-                        '</strong> habitants 2021 (est.)</em></p>'
+                        '</strong> habitants en 2021 (est.)</em></p>'
                         );
                 } else {
-                    document.getElementById('pd').innerHTML = '<p>Survolez une commune</p>';
+                    document.getElementById('pd').innerHTML = '<p>Survolez une Commune</p>';
                 }   
             } else if (map.getZoom() >= 12.5 ){
                 var fokontany = map.queryRenderedFeatures(e.point, {
@@ -169,14 +180,17 @@
                         '<h3><strong>' + fokontany[0].properties.adm4_en + 
                         '</strong></h3><p><strong><em>' + fokontany[0].properties.density + 
                         '</strong> habitants par hectare</em></p><p><strong><em>' + fokontany[0].properties.p2021est +
-                        '</strong> habitants 2021 (est.)</em></p>'
+                        '</strong> habitants en 2021 (est.)</em></p>'
                         );
                 } else {
-                    document.getElementById('pd').innerHTML = '<p>Survolez un fokontany</p>';
+                    document.getElementById('pd').innerHTML = '<p>Survolez un Fokontany</p>';
                 }   
             }
             });
 
         </script>
+
+        <!-- The actual snackbar -->
+        <div id="snackbar">Zoomez pour voir plus...</div>
     </body>
 </html>
