@@ -37,6 +37,20 @@
         map.addControl(scale);
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
+        map.once('idle', () => {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 5 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        })
         </script>
+
+        <!-- The actual snackbar -->
+        <div id="snackbar">Click droite + glisser pour tourner</div>
+        <div class="loader"></div>
     </body>
 </html>
