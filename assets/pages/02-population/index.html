@@ -18,10 +18,10 @@
         <div class='map-overlay' id='features'><div id='pd'><p>Survolez une entité!</p></div></div>
         <div class='map-overlay' id='legend'></div>
         <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoieHBpcml4IiwiYSI6ImNqNHFyaTJ2bzJsN2IycXFhZm1nM3U2cDMifQ.t3O2as4SWF4uxtduLu3YpA';
+            mapboxgl.accessToken = 'pk.eyJ1IjoiLXhwaXJpeC0iLCJhIjoiY2tvaWEwZHB0MWVhdjJvcXBiZmIzanllOCJ9.JSQMU7QWZpMKwyAFHsGfvw';
             var map = new mapboxgl.Map({
                 container: 'map',
-                style: 'mapbox://styles/xpirix/cknueheim0tjn17l812mwd1ym'
+                style: 'mapbox://styles/-xpirix-/ckoo95kps5ive17o2sq86zekc'
             });
 
             var scale = new mapboxgl.ScaleControl({
@@ -69,7 +69,7 @@
                     '#E31A1C', 
                     '#9e0020', 
                 ]
-                if(map.getZoom() <= 6.5) {
+                if(map.getZoom() <= 8.5) {
                     layers = [
                         '0 - 0,25', 
                         '0,25 - 0,5', 
@@ -78,7 +78,7 @@
                         '1 - 1,5', 
                         '1,5 - 2,5', 
                     ];
-                } else if (map.getZoom() >= 6.5 && map.getZoom() <= 10.5){
+                } else if (map.getZoom() >= 8.5 && map.getZoom() <= 10.5){
                     layers = [
                         '0', 
                         '0,5', 
@@ -125,7 +125,7 @@
             })
 
             map.on('mousemove', function(e) {
-            if(map.getZoom() <= 6.5) {
+            if(map.getZoom() <= 8.5) {
                 var regions = map.queryRenderedFeatures(e.point, {
                     layers: ['region-population']
                 });
@@ -140,7 +140,7 @@
                 } else {
                     document.getElementById('pd').innerHTML = '<p>Survolez une Région</p>';
                 }   
-            } else if (map.getZoom() >= 6.5 && map.getZoom() <= 10.5){
+            } else if (map.getZoom() >= 8.5 && map.getZoom() <= 10.5){
                 var districts = map.queryRenderedFeatures(e.point, {
                     layers: ['district-pop']
                 });
