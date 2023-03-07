@@ -1,3 +1,3 @@
 # maps-showcase
 
-Gallery showing maps I've made.
+Gallery showing maps I made.
