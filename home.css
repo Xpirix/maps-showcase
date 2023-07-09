@@ -16,3 +16,9 @@ a:hover {
   color: white;
   text-decoration: underline;
 }
+
+img:hover {
+  box-shadow: 0 10px 16px 0 rgba(255, 255, 255, 0.2),
+  0 6px 20px 0 rgba(255, 255, 255, 0.19) !important;
+  cursor: pointer;
+}
